@@ -63,11 +63,7 @@ class CharacterNode: SKSpriteNode {
         
         let walkAction = frameByFrameAction(textures: textures, perFrame: perFrame)
         
-        run(walkAction) { [weak self] in
-            guard let self = self else { return }
-            self.setIdle(direction: direction)
-            completion()
-        }
+        run(walkAction, completion: completion)
     }
     
     func playSleep() {

@@ -70,13 +70,22 @@ class BubbleDialogViewModel: ObservableObject {
         typingTask = Task { [weak self] in
             for character in fullText {
                 if Task.isCancelled { return }
-                
-                try? await Task.sleep(nanoseconds: UInt64(interval * 1_000_000_000))
+
+                do {
+                    try await Task.sleep(
+                        nanoseconds: UInt64(interval * 1_000_000_000)
+                    )
+                } catch {
+                    return
+                }
+
+                if Task.isCancelled { return }
                 
                 guard let self = self else { return }
                 self.displayedText.append(character)
             }
-            
+
+            if Task.isCancelled { return }
             guard let self = self else { return }
             self.isTyping = false
         }

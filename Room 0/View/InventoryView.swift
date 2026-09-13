@@ -154,6 +154,7 @@ struct InventoryView: View {
 
                         Text("+")
                             .font(ShineTypewriterFont.font(size: 20 * uniformScale))
+                            .foregroundColor(Color(hex: "2A292B"))
                             .position(x: plusCenterX, y: slotCenterY)
 
                         combinationSlot(
@@ -170,6 +171,7 @@ struct InventoryView: View {
 
                         Text("=")
                             .font(ShineTypewriterFont.font(size: 20 * uniformScale))
+                            .foregroundColor(Color(hex: "2A292B"))
                             .position(x: equalsCenterX, y: slotCenterY)
 
                         combinationSlot(
@@ -287,7 +289,7 @@ struct InventoryView: View {
             } else {
                 Text(placeholder)
                     .font(ShineTypewriterFont.font(size: 20 * uniformScale))
-                    .foregroundColor(.black)
+                    .foregroundColor(Color(hex: "2A292B"))
             }
         }
     }

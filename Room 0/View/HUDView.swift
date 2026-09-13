@@ -19,11 +19,21 @@ struct HUDView: View {
 
             ZStack {
                 ForEach(buttons, id: \.name) { button in
+                    let isDirectional = viewModel.isDirectionalButton(button.name)
+
                     PressableButton(
                         assetName: button.assetName,
-                        size: CGSize(width: button.size.width * scaleX, height: button.size.height * scaleY)
+                        size: CGSize(width: button.size.width * scaleX, height: button.size.height * scaleY),
+                        respondsToHold: isDirectional,
+                        releaseAction: {
+                            viewModel.handleRelease(for: button.name)
+                        }
                     ) {
-                        viewModel.handleTap(for: button.name)
+                        if isDirectional {
+                            viewModel.handlePress(for: button.name)
+                        } else {
+                            viewModel.handleTap(for: button.name)
+                        }
                     }
                     .position(x: button.position.x * scaleX, y: button.position.y * scaleY)
                 }

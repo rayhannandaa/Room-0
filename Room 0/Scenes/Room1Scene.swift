@@ -355,7 +355,7 @@ class Room1Scene: SKScene {
         }
 
         guard !isMoving,
-              let direction = input.pendingDirection
+              let direction = input.pendingDirection ?? input.heldDirection
         else {
             return
         }
@@ -790,7 +790,12 @@ class Room1Scene: SKScene {
             direction: direction,
             stepDuration: stepDuration
         ) { [weak self] in
-            self?.isMoving = false
+            guard let self else { return }
+            self.isMoving = false
+
+            if self.input.heldDirection != direction {
+                self.character.setIdle(direction: direction)
+            }
         }
         
         character.run(

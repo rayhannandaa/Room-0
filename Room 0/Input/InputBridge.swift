@@ -8,24 +8,42 @@
 import Foundation
 import Combine
 
-enum ControlDirection {
+enum ControlDirection: Equatable {
     case up, down, left, right
 }
 
 final class InputBridge: ObservableObject {
     @Published var pendingDirection: ControlDirection? = nil
+    @Published private(set) var heldDirection: ControlDirection? = nil
     @Published var isInventoryOpen: Bool = false
     @Published var interactTrigger: Int = 0
-    @Published var controlsEnabled: Bool = false
+    @Published var controlsEnabled: Bool = false {
+        didSet {
+            if !controlsEnabled {
+                cancelMovement()
+            }
+        }
+    }
     @Published private(set) var isOpeningSequencePending: Bool = true
 
     func beginOpeningSequence() {
         isOpeningSequencePending = false
     }
 
-    func tappedDirection(_ direction: ControlDirection) {
+    func pressedDirection(_ direction: ControlDirection) {
         guard controlsEnabled, !isInventoryOpen else { return }
+        heldDirection = direction
         pendingDirection = direction
+    }
+
+    func releasedDirection(_ direction: ControlDirection) {
+        guard heldDirection == direction else { return }
+        heldDirection = nil
+    }
+
+    func cancelMovement() {
+        heldDirection = nil
+        pendingDirection = nil
     }
 
     func tappedInteract() {
@@ -35,6 +53,9 @@ final class InputBridge: ObservableObject {
 
     func toggleInventory() {
         guard controlsEnabled else { return }
+        if !isInventoryOpen {
+            cancelMovement()
+        }
         isInventoryOpen.toggle()
     }
 }
