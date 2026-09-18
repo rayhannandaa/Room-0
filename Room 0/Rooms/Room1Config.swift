@@ -27,12 +27,7 @@ extension RoomConfig {
                 position: CGPoint(x: 691.5, y: 200),
                 zPosition: 2,
                 isInteractable: true,
-                dialog: BubbleDialogSequence(lines: [
-                    BubbleDialogLine(text: "I think this is the way out."),
-                    BubbleDialogLine(text: "But it's locked... and this strange white buildup is jammed around the mechanism."),
-                    BubbleDialogLine(text: "Was this done deliberately?"),
-                    BubbleDialogLine(text: "There has to be a way to dissolve or break it apart.")
-                ])
+                dialog: Room1DialogueCatalog.lockedDoorInitial
             ),
             RoomObjectConfig(
                 name: "Chalk",
@@ -41,10 +36,7 @@ extension RoomConfig {
                 position: CGPoint(x: 67.2, y: 595),
                 zPosition: 2,
                 isInteractable: true,
-                dialog: BubbleDialogSequence(lines: [
-                    BubbleDialogLine(text: "A piece of ordinary chalk."),
-                    BubbleDialogLine(text: "It crumbles easily. There must be a reason it was left here.")
-                ]),
+                dialog: Room1DialogueCatalog.chalk,
                 collectibleItem: ItemCatalog.chalk()
             ),
             RoomObjectConfig(name: "DoubleBottle", assetName: "DoubleBottle", size: CGSize(width: 71.5, height: 68.3), position: CGPoint(x: 544.25, y: 379.05), zPosition: 2),
@@ -56,10 +48,7 @@ extension RoomConfig {
                 position: CGPoint(x: 300, y: 762.45),
                 zPosition: 2,
                 isInteractable: true,
-                dialog: BubbleDialogSequence(lines: [
-                    BubbleDialogLine(text: "An old oil lamp. It looks like there's still some fuel inside."),
-                    BubbleDialogLine(text: "These matches should be enough to light it.")
-                ])
+                dialog: Room1DialogueCatalog.lamp
             ),
             RoomObjectConfig(
                 name: "Journal",
@@ -68,11 +57,7 @@ extension RoomConfig {
                 position: CGPoint(x: 540, y: 555),
                 zPosition: 2,
                 isInteractable: true,
-                dialog: BubbleDialogSequence(lines: [
-                    BubbleDialogLine(text: "A handwritten journal... someone was conducting experiments here."),
-                    BubbleDialogLine(text: "One entry says weak acids react with calcium carbonate and produce bubbles."),
-                    BubbleDialogLine(text: "This might explain some of the materials in this room.")
-                ])
+                dialog: Room1DialogueCatalog.journal
             ),
             RoomObjectConfig(name: "Bottle_1", assetName: "Bottle", size: CGSize(width: 27, height: 55.1), position: CGPoint(x: 41, y: 116.45), zPosition: 3),
             RoomObjectConfig(name: "Bottle_2", assetName: "Bottle", size: CGSize(width: 27, height: 55.1), position: CGPoint(x: 88, y: 116.45), zPosition: 3),
@@ -83,10 +68,7 @@ extension RoomConfig {
                 position: CGPoint(x: 258.25, y: 115.9),
                 zPosition: 3,
                 isInteractable: true,
-                dialog: BubbleDialogSequence(lines: [
-                    BubbleDialogLine(text: "That sharp smell... this is vinegar."),
-                    BubbleDialogLine(text: "A weak acid. Maybe I can test it on something in this room.")
-                ]),
+                dialog: Room1DialogueCatalog.vinegar,
                 collectibleItem: ItemCatalog.vinegarBottle()
             ),
             RoomObjectConfig(
@@ -96,10 +78,7 @@ extension RoomConfig {
                 position: CGPoint(x: 337.5, y: 460),
                 zPosition: 2.4,
                 isInteractable: true,
-                dialog: BubbleDialogSequence(lines: [
-                    BubbleDialogLine(text: "A matchbox... and the matches are still dry."),
-                    BubbleDialogLine(text: "This could help me see what's hidden in here.")
-                ]),
+                dialog: Room1DialogueCatalog.matchbox,
                 collectibleItem: ItemCatalog.matchbox()
             )
         ]

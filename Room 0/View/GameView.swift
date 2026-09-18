@@ -106,29 +106,31 @@ struct GameView: View {
         
         let scene = Room1Scene(
             config: .room1,
-            input: bridge,
-            dialogHandler: { sequence, completion in
-                Task { @MainActor in
-                    dialogViewModel.present(sequence, completion: completion)
+            dependencies: Room1SceneDependencies(
+                input: bridge,
+                presentDialog: { sequence, completion in
+                    Task { @MainActor in
+                        dialogViewModel.present(sequence, completion: completion)
+                    }
+                },
+                collectItem: { item in
+                    inventoryViewModel.collectAndPresent(item)
+                },
+                unlockItemUse: {
+                    inventoryViewModel.unlockItemUse()
+                },
+                activeItem: {
+                    inventoryViewModel.activeItem
+                },
+                hasDiscoveredChalkVinegarReaction: {
+                    inventoryViewModel.hasDiscoveredChalkVinegarReaction
+                },
+                presentGuidance: { step, completion in
+                    Task { @MainActor in
+                        guidanceViewModel.present(step, completion: completion)
+                    }
                 }
-            },
-            itemCollectedHandler: { item in
-                inventoryViewModel.collectAndPresent(item)
-            },
-            itemUseUnlockedHandler: {
-                inventoryViewModel.unlockItemUse()
-            },
-            activeItemProvider: {
-                inventoryViewModel.activeItem
-            },
-            hasDiscoveredChalkVinegarReactionProvider: {
-                inventoryViewModel.hasDiscoveredChalkVinegarReaction
-            },
-            guidanceHandler: { step, completion in
-                Task { @MainActor in
-                    guidanceViewModel.present(step, completion: completion)
-                }
-            }
+            )
         )
         scene.scaleMode = .aspectFill
         scene.prepareForPresentation(
